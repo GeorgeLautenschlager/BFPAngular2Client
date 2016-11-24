@@ -1,5 +1,5 @@
 import { Injectable }   from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { Headers, Http, Response } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -17,8 +17,16 @@ export class ShipService {
 
     return this.http.get(url)
                .toPromise()
-               .then(response => response.json().ships)
+               .then(response => this.deserialize(response))
                .catch(this.handleError);
+  }
+
+  private deserialize(res: Response) {
+    var ships = res.json().data.map(function(json){
+      return new Ship(json.id, json.attributes.name, json.attributes["location-x"], json.attributes["location-y"])
+      return Object.assign({id: key.id}, key.attributes)
+    });
+    return ships;
   }
 
   getShip(id: number): Promise<Ship> {

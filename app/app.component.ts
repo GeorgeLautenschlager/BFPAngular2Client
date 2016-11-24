@@ -10,10 +10,10 @@ import { ShipService }    from './ship.service';
 
     <ul>
       <li *ngFor="let ship of ships">
-        <span>{{ship}}</span>
         <span>ID:</span> {{ship.id}}
         <span>Name:</span> {{ship.name}}
-        <span>Location X:</span> {{ship.location_x}}
+        <span>Location X:</span> {{ship.locationX}}
+        <span>Location Y:</span> {{ship.locationY}}
       </li>
     </ul>
   `
