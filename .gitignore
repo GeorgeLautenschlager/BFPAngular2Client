@@ -8,3 +8,4 @@ dist/*
 yarn.lock
 .tags*
 .DS_Store
+npm-debug.log

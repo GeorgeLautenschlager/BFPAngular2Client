@@ -27,7 +27,7 @@ export class GameboardComponent{
       context.fillStyle = 'green';
       // context.fillRect(10, 10, 150, 150);
       // debugger;
-      context.fillRect(ship.locationX/2, ship.locationY/2, 50, 50);
+      context.fillRect(ship.locationX, ship.locationY, 50, 50);
     }
 
   }
