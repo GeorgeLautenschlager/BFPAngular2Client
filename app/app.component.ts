@@ -3,21 +3,16 @@ import { Component, OnInit }      from '@angular/core';
 import { Ship }           from './ship';
 import { ShipService }    from './ship.service';
 
+import { GameboardComponent }     from './gameboard.component';
+
 @Component({
   selector: 'my-app',
   template: `
-    <h1>ALL AHEAD FULL AND DAMN THE TORPEDUS</h1>
-
-    <ul>
-      <li *ngFor="let ship of ships">
-        <span>ID:</span> {{ship.id}}
-        <span>Name:</span> {{ship.name}}
-        <span>Location X:</span> {{ship.locationX}}
-        <span>Location Y:</span> {{ship.locationY}}
-      </li>
-    </ul>
+    <h1>Battlefleet Perseus Phase 0</h1>
+    <gameboard *ngIf="ships.length > 0" [ships]="ships"> </gameboard>
   `
 })
+
 export class AppComponent implements OnInit{
   ships = [];
 
