@@ -23,9 +23,9 @@ export class ShipService {
 
   private deserialize(res: Response) {
     var ships = res.json().data.map(function(json){
-      return new Ship(json.id, json.attributes.name, json.attributes["location-x"], json.attributes["location-y"])
+      return new Ship(json.id, json.attributes.name, json.attributes["location-x"], json.attributes["location-y"], json.attributes["heading"])
     });
-    
+
     return ships;
   }
 

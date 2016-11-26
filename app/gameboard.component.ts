@@ -45,23 +45,31 @@ export class GameboardComponent{
 
     for (let ship of this.ships) {
       // scale the ships coordinates
-      const x = ship.locationX/(this.tableStandardHeight*2)*tableWidth;
-      const y = ship.locationY/(this.tableStandardHeight)*tableHeight;
+      let x = ship.locationX/(this.tableStandardHeight*2)*tableWidth;
+      let y = ship.locationY/(this.tableStandardHeight)*tableHeight;
+
+      ctx.save();
+      ctx.translate(x, y);
+
+      x = 0;
+      y = 0;
+      
+      ctx.rotate((Math.PI/180)*ship.heading);
 
       // Imperial Green, or what passes for it
       ctx.fillStyle = '#265401';
       ctx.beginPath();
-      // move forward half a ship length, at same Y
-      ctx.moveTo(x + shipLength/2, y);
-      // draw line to top right "corner" of rectangle
-      ctx.lineTo(x - shipLength/2, y-shipLength/4)
-      // Now draw a line to the bottome left "corner"
-      ctx.lineTo(x - shipLength/2, y+shipLength/4)
-      // Now fill the triangle
+      // move up half a ship length, at the same x
+      ctx.moveTo(0, -shipLength/2);
+      // draw the bottom corners
+      ctx.lineTo(shipLength/4, shipLength/2);
+      ctx.lineTo(-shipLength/4, shipLength/2);
       ctx.fill();
 
       // Add a hit region, so click events can tell us what region they hit
       ctx.addHitRegion({id: "ship-"+ship.id});
+
+      ctx.restore();
     }
   }
 }
