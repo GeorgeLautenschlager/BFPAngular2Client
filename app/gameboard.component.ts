@@ -39,9 +39,11 @@ export class GameboardComponent{
       // Now fill the triangle
       ctx.fill();
 
+      // Add a hit region, so click events can tell us what region they hit
       ctx.addHitRegion({id: "ship-"+ship.id});
     }
 
+    // Creat a handler function with the this.ships captured
     let clickHandler = (evt:Event) => {
       var ships = this.ships;
 
@@ -50,6 +52,7 @@ export class GameboardComponent{
       alert(ship.name)
     }
 
+    // Add the click listener
     this.tableTop.nativeElement.addEventListener("click",clickHandler)
 
   }
