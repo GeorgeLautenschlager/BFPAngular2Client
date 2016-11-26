@@ -2,7 +2,7 @@ export class Ship {
   id: number;
   name: string;
   locationX: number;
-  locationY
+  locationY: number;
 
   constructor(id: number, name: string, locationX: number, locationY) {
     this.id = id;

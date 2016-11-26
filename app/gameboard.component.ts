@@ -38,7 +38,19 @@ export class GameboardComponent{
         y + shipLength/4)
       // Now fill the triangle
       ctx.fill();
+
+      ctx.addHitRegion({id: "ship-"+ship.id});
     }
+
+    let clickHandler = (evt:Event) => {
+      var ships = this.ships;
+
+      ship = ships.find(ship => ship.id == parseInt(event.region.split('-')[1]))
+
+      alert(ship.name)
+    }
+
+    this.tableTop.nativeElement.addEventListener("click",clickHandler)
 
   }
 }
