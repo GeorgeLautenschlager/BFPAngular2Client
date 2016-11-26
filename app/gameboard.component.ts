@@ -10,24 +10,34 @@ import { Ship } from './ship';
 
 export class GameboardComponent{
   @Input() ships: Ship[];
-
   @ViewChild("table") tableTop: ElementRef;
 
   constructor() { }
 
   ngAfterViewInit() {
-    console.log("test");
-    let context: CanvasRenderingContext2D = this.tableTop.nativeElement.getContext("2d");
+    const shipLength = this.tableTop.nativeElement.width * 0.01639;
+    let tableWidth = this.tableTop.nativeElement.width;
+    let tableHeight = this.tableTop.nativeElement.height;
 
-
-
-    context.fillStyle = 'olive';
+    let ctx: CanvasRenderingContext2D = this.tableTop.nativeElement.getContext("2d");
 
     for (let ship of this.ships) {
-      context.fillStyle = 'green';
-      // context.fillRect(10, 10, 150, 150);
-      // debugger;
-      context.fillRect(ship.locationX, ship.locationY, 50, 50);
+      // scale the ships coordinates
+      const x = ship.locationX/2438.4 * tableWidth;
+      const y = ship.locationY/1219.2 * tableHeight;
+
+      // Imperial Green, or what passes for it
+      ctx.fillStyle = '#265401';
+      ctx.beginPath();
+      // move forward half a ship length, at same Y
+      ctx.moveTo(x + shipLength/2, y);
+      // draw line to top right "corner" of rectangle
+      ctx.lineTo(x - shipLength/2, y - shipLength/4)
+      // Now draw a line to the bottome left "corner"
+      ctx.lineTo(x - shipLength/2,
+        y + shipLength/4)
+      // Now fill the triangle
+      ctx.fill();
     }
 
   }
