@@ -4,9 +4,9 @@ import { Ship } from './ship';
 import { ShipService } from './ship.service';
 
 @Component({
-  moduleId: module.id,
+  moduleId: module.id.replace("/dist/","/"),
   selector: 'gameboard',
-  templateUrl: 'gameboard.component.html'
+  templateUrl: 'app/templates/gameboard.component.html'
 })
 
 export class GameboardComponent{
