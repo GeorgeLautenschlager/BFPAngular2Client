@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef, OnInit, Input }  from '@angular/core';
 
 import { Ship } from './ship';
+import { ShipService } from './ship.service';
 
 @Component({
   moduleId: module.id,
@@ -12,7 +13,17 @@ export class GameboardComponent{
   @Input() ships: Ship[];
   @ViewChild("table") tableTop: ElementRef;
 
+  selectedShip: Ship;
+
   constructor() { }
+
+  onTableClick() {
+    if (event.region){
+      var ship = this.ships.find(ship => ship.id == parseInt(event.region.split('-')[1]))
+    }
+
+    this.selectedShip = ship;
+  }
 
   ngAfterViewInit() {
     const shipLength = this.tableTop.nativeElement.width * 0.01639;
@@ -42,18 +53,5 @@ export class GameboardComponent{
       // Add a hit region, so click events can tell us what region they hit
       ctx.addHitRegion({id: "ship-"+ship.id});
     }
-
-    // Creat a handler function with the this.ships captured
-    let clickHandler = (evt:Event) => {
-      var ships = this.ships;
-
-      ship = ships.find(ship => ship.id == parseInt(event.region.split('-')[1]))
-
-      alert(ship.name)
-    }
-
-    // Add the click listener
-    this.tableTop.nativeElement.addEventListener("click",clickHandler)
-
   }
 }
