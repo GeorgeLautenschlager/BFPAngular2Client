@@ -22,14 +22,27 @@ export class GameboardComponent{
 
   selectedShip: Ship;
 
-  constructor() { }
-
+  constructor(private shipService: ShipService) { }
+//
   onTableClick() {
     if (event.region){
       var ship = this.ships.find(ship => ship.id == parseInt(event.region.split('-')[1]))
     }
 
+    // for starting transcompilation
+    // if(true){
+    //   var ship = this.ships.find(ship => ship.id == null)
+    // }
+
     this.selectedShip = ship;
+  }
+
+  moveShip(moveAmount: string) {
+    var distance = parseInt(moveAmount);
+
+    this.shipService
+        .updateShip(this.selectedShip)
+        .then(ship => this.selectedShip = ship)
   }
 
   ngAfterViewInit() {
@@ -53,8 +66,8 @@ export class GameboardComponent{
 
       x = 0;
       y = 0;
-      
-      ctx.rotate((Math.PI/180)*ship.heading);
+
+      ctx.rotate((Math.PI/180)*ship.bearing);
 
       // Imperial Green, or what passes for it
       ctx.fillStyle = '#265401';

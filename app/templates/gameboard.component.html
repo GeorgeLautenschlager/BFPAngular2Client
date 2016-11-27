@@ -4,10 +4,10 @@
   </canvas>
 </div>
 
-<div *ngIf="selectedShip">
-  <h3>{{selectedShip.name}}</h3>
+<div>
+  <h3 *ngIf="selectedShip">{{selectedShip.name}}</h3>
   <label for="movement"> Movement (cm): </label>
-  <input type="text" id="movement">
+  <input #moveAmount type="text" id="movement">
 
-  <button id="execute"> Execute </button> 
+  <button (click)="moveShip(moveAmount.value)" id="execute"> Execute </button>
 </div>

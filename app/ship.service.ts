@@ -17,16 +17,8 @@ export class ShipService {
 
     return this.http.get(url)
                .toPromise()
-               .then(response => this.deserialize(response))
+               .then(response => this.deserializeShips(response))
                .catch(this.handleError);
-  }
-
-  private deserialize(res: Response) {
-    var ships = res.json().data.map(function(json){
-      return new Ship(json.id, json.attributes.name, json.attributes["location-x"], json.attributes["location-y"], json.attributes["heading"])
-    });
-
-    return ships;
   }
 
   getShip(id: number): Promise<Ship> {
@@ -37,10 +29,10 @@ export class ShipService {
                .catch(this.handleError);
   }
 
-  update(ship: Ship): Promise<Ship> {
+  updateShip(ship: Ship): Promise<Ship> {
     const url = `${this.shipsUrl}/${ship.id}`
     return this.http
-               .put(url, JSON.stringify(ship), {headers: this.headers})
+               .put(url, this.serializeShip(ship), {headers: this.headers})
                .toPromise()
                .then(response => response.json().ship as Ship)
                .catch(this.handleError);
@@ -49,5 +41,31 @@ export class ShipService {
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
+  }
+
+  private deserializeShips(res: Response) {
+    let ships: Ship[] = [];
+
+    for (let json of res.json().data){
+      ships.push(this.deserializeShip(json));
+    }
+
+    return ships;
+  }
+
+  private deserializeShip(json: any) {
+    return new Ship(json.id, json.attributes.name, json.attributes["location-x"], json.attributes["location-y"], json.attributes["bearing"])
+  }
+
+  private serializeShip(ship: Ship) {
+    return {"data": {
+      "type": "ships",
+      "attributes": {
+        "name": ship.name,
+        "location_x": ship.locationX,
+        "location_y": ship.locationY,
+        "bearing": ship.bearing
+      }
+    }}
   }
 }
