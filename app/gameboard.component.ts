@@ -38,11 +38,20 @@ export class GameboardComponent{
   }
 
   moveShip(moveAmount: string) {
-    var distance = parseInt(moveAmount);
+    var distance = parseInt(moveAmount)*10;
+
+    var distanceX = Math.round(distance*Math.sin(this.selectedShip.bearing*Math.PI/180));
+    var distanceY = Math.round(-1*distance*Math.cos(this.selectedShip.bearing*Math.PI/180));
+
+    this.selectedShip.locationX = this.selectedShip.locationX + distanceX;
+    this.selectedShip.locationY = this.selectedShip.locationY + distanceY;
 
     this.shipService
         .updateShip(this.selectedShip)
-        .then(ship => this.selectedShip = ship)
+        .then((ship) => {
+          this.selectedShip = ship;
+          this.drawShips();
+        })
   }
 
   ngAfterViewInit() {
@@ -55,6 +64,9 @@ export class GameboardComponent{
     const shipLength = tableHeight * this.shipScaleFactor;
 
     let ctx: CanvasRenderingContext2D = this.tableTop.nativeElement.getContext("2d");
+
+    // clear canvas before drawing all ships
+    ctx.clearRect(0, 0, tableWidth, tableHeight);
 
     for (let ship of this.ships) {
       // scale the ships coordinates
