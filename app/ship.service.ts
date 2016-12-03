@@ -7,7 +7,7 @@ import { Ship }         from './ship';
 
 @Injectable()
 export class ShipService {
-  private shipsUrl = 'http://localhost:3000/ships';
+  private shipsUrl = 'http://localhost:3000/fleets';
   private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http:Http) { }
@@ -35,7 +35,7 @@ export class ShipService {
                .put(url, this.serializeShip(ship), {headers: this.headers})
                .toPromise()
                .then((response) => {
-                 response.json().ship as Ship
+                 return response.json().ship as Ship
                })
                .catch(this.handleError);
   }
@@ -48,15 +48,15 @@ export class ShipService {
   private deserializeShips(res: Response) {
     let ships: Ship[] = [];
 
-    for (let json of res.json().data){
+    for (let json of res.json().included){
       ships.push(this.deserializeShip(json));
     }
-
+    debugger;
     return ships;
   }
 
   private deserializeShip(json: any) {
-    return new Ship(json.id, json.attributes.name, json.attributes["location-x"], json.attributes["location-y"], json.attributes["bearing"])
+    return new Ship(json.id, json.attributes.name, json.attributes["x-coord"], json.attributes["y-coord"], json.attributes["bearing"])
   }
 
   private serializeShip(ship: Ship) {
