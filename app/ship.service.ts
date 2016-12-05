@@ -51,7 +51,7 @@ export class ShipService {
     for (let json of res.json().included){
       ships.push(this.deserializeShip(json));
     }
-    debugger;
+    
     return ships;
   }
 
