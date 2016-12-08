@@ -16,9 +16,7 @@ import { ShipService }    from './ship.service';
       </div>
     </div>
 
-    <div>
-      control component
-    </div>
+    <control></control>
   `,
   providers: [ ShipService ]
 })

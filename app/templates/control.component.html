@@ -1,0 +1,7 @@
+<div>
+  <h3 *ngIf="selectedShip">{{selectedShip.name}}</h3>
+  <label for="movement"> Movement (cm): </label>
+  <input #moveAmount type="text" id="movement">
+
+  <button (click)="moveShip(moveAmount.value)" id="execute"> Execute </button>
+</div>
