@@ -12,7 +12,7 @@ import { ShipService }    from './ship.service';
       </div>
 
       <div>
-        <!-- <gameboard *ngIf="ships.length > 0" [ships]="ships"> </gameboard> -->
+        <gameboard *ngIf="ships.length > 0" [ships]="ships"> </gameboard>
       </div>
     </div>
 

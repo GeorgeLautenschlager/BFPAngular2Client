@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { TableTopModule } from './table-top.module';
 import { TableTopComponent } from './table-top.component';
 
 const routes: Routes = [
@@ -12,7 +11,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [ RouterModule.forRoot(routes)],
-  declarations: [TableTopComponent],
+  declarations: [],
   exports: [ RouterModule ]
 })
 export class AppRoutingModule {}
