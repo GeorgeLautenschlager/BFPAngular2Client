@@ -1,16 +1,21 @@
-import { NgModule }                 from '@angular/core';
-import { BrowserModule }            from '@angular/platform-browser';
-import { HttpModule }               from '@angular/http';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
 
-import { AppComponent }             from './app.component';
-import { GameboardComponent }       from './gameboard.component';
+import { AppRoutingModule } from './app-routing.module';
 
-import { ShipService }              from './ship.service';
+import { AppComponent } from './app.component';
 
 @NgModule({
-  imports:      [ BrowserModule, HttpModule ],
-  declarations: [ AppComponent, GameboardComponent ],
-  bootstrap:    [ AppComponent ],
-  providers:    [ ShipService ]
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpModule
+  ],
+  declarations: [
+    AppComponent
+  ],
+  bootstrap: [ AppComponent ]
 })
+
 export class AppModule { }

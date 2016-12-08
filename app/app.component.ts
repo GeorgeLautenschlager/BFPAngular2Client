@@ -1,30 +1,12 @@
-import { Component, OnInit }      from '@angular/core';
-
-import { Ship }           from './ship';
-import { ShipService }    from './ship.service';
-
-import { GameboardComponent }     from './gameboard.component';
+import { Component } from '@angular/core';
+import { AppRoutingModule } from './app-routing.module';
 
 @Component({
-  selector: 'my-app',
-  template: `
-    <h1>Battlefleet Perseus Phase 0</h1>
-    <gameboard *ngIf="ships.length > 0" [ships]="ships"> </gameboard>
-  `
+  moduleId: module.id.replace("/dist/","/"),
+  selector: 'app-root',
+  templateUrl: 'app/templates/app.component.html'
 })
 
-export class AppComponent implements OnInit{
-  ships = [];
-
-  constructor(private shipService: ShipService) { }
-
-  ngOnInit(): void {
-    this.getShips();
-  }
-
-  getShips(): void{
-    this.shipService
-        .getShips()
-        .then(ships => this.ships = ships)
-  }
+export class AppComponent {
+  title = "BATTLEFLEET PERSEUS"
 }

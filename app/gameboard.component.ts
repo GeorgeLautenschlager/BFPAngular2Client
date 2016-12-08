@@ -23,16 +23,16 @@ export class GameboardComponent{
   selectedShip: Ship;
 
   constructor(private shipService: ShipService) { }
-//
+
   onTableClick() {
-    if (event.region){
-      var ship = this.ships.find(ship => ship.id == parseInt(event.region.split('-')[1]))
-    }
+    // if (event.region){
+    //   var ship = this.ships.find(ship => ship.id == parseInt(event.region.split('-')[1]))
+    // }
 
     // for starting transcompilation
-    // if(true){
-    //   var ship = this.ships.find(ship => ship.id == null)
-    // }
+    if(true){
+      var ship = this.ships.find(ship => ship.id == null)
+    }
 
     this.selectedShip = ship;
   }
@@ -92,7 +92,7 @@ export class GameboardComponent{
       ctx.fill();
 
       // Add a hit region, so click events can tell us what region they hit
-      ctx.addHitRegion({id: "ship-"+ship.id});
+      // ctx.addHitRegion({id: "ship-"+ship.id});
 
       ctx.restore();
     }

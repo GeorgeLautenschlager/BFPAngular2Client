@@ -10,7 +10,7 @@ export class ShipService {
   private shipsUrl = 'http://localhost:3000/fleets';
   private headers = new Headers({'Content-Type': 'application/json'});
 
-  constructor(private http:Http) { }
+  constructor(private http: Http) { }
 
   getShips(): Promise<Ship[]> {
     const url = this.shipsUrl;
@@ -51,7 +51,7 @@ export class ShipService {
     for (let json of res.json().included){
       ships.push(this.deserializeShip(json));
     }
-    
+
     return ships;
   }
 
