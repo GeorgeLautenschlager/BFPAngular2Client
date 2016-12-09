@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, Input }  from '@angular/core';
+import { Component, ViewChild, ElementRef, Input, OnInit }  from '@angular/core';
 
 import { Ship } from './ship';
 import { ShipService } from './ship.service';
@@ -9,20 +9,23 @@ import { ShipService } from './ship.service';
   templateUrl: 'app/templates/gameboard.component.html'
 })
 
-export class GameboardComponent{
+export class GameboardComponent implements OnInit{
   @Input() ships: Ship[];
   @ViewChild("table") tableTop: ElementRef;
+  selectedShip: Ship;
 
   // The radius of a small base on a 4" by 4" table
   smallBaseScaleFactor = 0.01639;
   // Length of an imperial cruiser on a 4" by 4" table
-  shipScaleFactor = 0.01639*4;
+  shipScaleFactor = this.smallBaseScaleFactor*4;
   // 4" by 4" table height in millimetres
   tableStandardHeight = 1219.2;
 
-  selectedShip: Ship;
-
   constructor(private shipService: ShipService) { }
+
+  ngOnInit(): void {
+    this.shipService.bindSelectedShip(this);
+  }
 
   onTableClick() {
     if (event.region){

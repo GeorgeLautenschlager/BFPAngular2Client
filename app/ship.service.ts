@@ -15,6 +15,14 @@ export class ShipService {
 
   constructor(private http: Http) { }
 
+  bindSelectedShip(observer) {
+    observer.shipService.selectedShip.subscribe({
+      next: (ship) => {
+        observer.selectedShip = ship
+      }
+    });
+  }
+
   getShips(): Promise<Ship[]> {
     const url = this.shipsUrl;
 

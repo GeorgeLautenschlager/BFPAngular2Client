@@ -16,14 +16,6 @@ export class ControlComponent implements OnInit{
   constructor(private shipService: ShipService) { }
 
   ngOnInit(): void {
-    this.bindSelectedShip();
-  }
-
-  bindSelectedShip() {
-    this.shipService.selectedShip.subscribe({
-      next: (ship) => {
-        this.selectedShip = ship
-      }
-    });
+    this.shipService.bindSelectedShip(this);
   }
 }
