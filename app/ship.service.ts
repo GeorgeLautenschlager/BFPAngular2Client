@@ -1,5 +1,6 @@
 import { Injectable }   from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
+import { Subject } from 'rxjs/Rx';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -9,6 +10,8 @@ import { Ship }         from './ship';
 export class ShipService {
   private shipsUrl = 'http://localhost:3000/fleets';
   private headers = new Headers({'Content-Type': 'application/json'});
+
+  selectedShip = new Subject<Ship>();
 
   constructor(private http: Http) { }
 

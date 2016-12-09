@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, OnInit, Input }  from '@angular/core';
+import { Component, ViewChild, ElementRef, Input }  from '@angular/core';
 
 import { Ship } from './ship';
 import { ShipService } from './ship.service';
@@ -34,7 +34,7 @@ export class GameboardComponent{
     //   var ship = this.ships.find(ship => ship.id == null)
     // }
 
-    this.selectedShip = ship;
+    this.shipService.selectedShip.next(ship);
   }
 
   moveShip(moveAmount: string) {
