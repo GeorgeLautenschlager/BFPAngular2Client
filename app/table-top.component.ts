@@ -4,20 +4,9 @@ import { Ship }           from './ship';
 import { ShipService }    from './ship.service';
 
 @Component({
+  moduleId: module.id.replace("/dist","/"),
   selector: 'table-top',
-  template: `
-    <div>
-      <div>
-        nav component
-      </div>
-
-      <div>
-        <gameboard *ngIf="ships.length > 0" [ships]="ships"> </gameboard>
-      </div>
-    </div>
-
-    <control></control>
-  `,
+  templateUrl: 'app/templates/table-top.component.html',
   providers: [ ShipService ]
 })
 
