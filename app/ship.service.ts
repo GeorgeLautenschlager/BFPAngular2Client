@@ -14,7 +14,13 @@ export class ShipService {
 
   selectedShip = new Subject<Ship>();
 
-  constructor(private http: Http, private ws: WebSocketService) { }
+  constructor(private http: Http, private ws: WebSocketService) {
+    ws.socket.subscribe({
+      next: (event) => {
+        console.log(event.data);
+      }
+    });
+  }
 
   bindSelectedShip(observer) {
     observer.shipService.selectedShip.subscribe({
@@ -24,8 +30,8 @@ export class ShipService {
     });
   }
 
-  moveShip(): void {
-    this.ws.move();
+  moveShip(shipId): void {
+    this.ws.move(shipId);
   }
 
   getShips(): Promise<Ship[]> {

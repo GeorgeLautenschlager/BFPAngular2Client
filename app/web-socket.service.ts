@@ -6,7 +6,7 @@ import { Ship } from './ship';
 @Injectable()
 export class WebSocketService {
   private socketUrl: string = 'ws://localhost:3000/cable';
-  private socket: Subject<String>;
+  socket: Subject<Object>;
 
   constructor() {
     let ws = new WebSocket(this.socketUrl);
@@ -16,14 +16,14 @@ export class WebSocketService {
         ws.onerror = obs.next.bind(obs);
         ws.onclose = obs.next.bind(obs);
 
-        ws.onopen = () => {
-          var msg = {"command":"subscribe","identifier":"{\"channel\":\"ShipChannel\"}"}
-          ws.send(JSON.stringify(msg));
-        }
-
         return ws.close.bind(ws);
       }
     );
+
+    ws.onopen = () => {
+      var msg = {"command":"subscribe","identifier":"{\"channel\":\"ShipChannel\"}"}
+      ws.send(JSON.stringify(msg));
+    }
 
     let observer = {
         next: (data: Object) => {
@@ -36,8 +36,8 @@ export class WebSocketService {
     this.socket = Subject.create(observer, observable);
   }
 
-  move(): void {
+  move(Id): void {
     var msg = {"command":"message","identifier":"{\"channel\":\"ShipChannel\"}","data":"{\"action\":\"test_event\",\"message\":\"All ahead full and damn the torpedoes!\"}"}
-    this.socket.next(JSON.stringify(msg));
+    this.socket.next(msg);
   }
 }

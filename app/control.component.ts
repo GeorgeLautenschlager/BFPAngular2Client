@@ -18,4 +18,8 @@ export class ControlComponent implements OnInit{
   ngOnInit(): void {
     this.shipService.bindSelectedShip(this);
   }
+
+  execute(command): void {
+    this.shipService.moveShip(this.selectedShip.id);
+  }
 }
