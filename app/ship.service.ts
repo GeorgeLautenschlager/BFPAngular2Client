@@ -5,6 +5,7 @@ import { Subject } from 'rxjs/Rx';
 import 'rxjs/add/operator/toPromise';
 
 import { Ship }         from './ship';
+import { WebSocketService } from './web-socket.service';
 
 @Injectable()
 export class ShipService {
@@ -13,7 +14,7 @@ export class ShipService {
 
   selectedShip = new Subject<Ship>();
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private ws: WebSocketService) { }
 
   bindSelectedShip(observer) {
     observer.shipService.selectedShip.subscribe({
@@ -21,6 +22,10 @@ export class ShipService {
         observer.selectedShip = ship
       }
     });
+  }
+
+  moveShip(): void {
+    this.ws.move();
   }
 
   getShips(): Promise<Ship[]> {
